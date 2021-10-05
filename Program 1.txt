@@ -1,0 +1,103 @@
+1a. LINEAR REGRESSION (UNIVARIATE) ON SKLEARN-MAKE REGRESSION DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+#Create data
+from sklearn.datasets import make_regression 
+data = make_regression(n_samples=10,n_features=1,
+n_targets=1,bias=15,noise=5,random_state=42) x = pd.DataFrame(data[0]).values
+y = pd.Series(data[1]).values
+
+#Build model
+from sklearn.linear_model import LinearRegression lin = LinearRegression()
+
+#fit Model lin.fit(x,y)
+
+#Predict
+y_pred = lin.predict(x) lin.predict([[25]])
+
+
+1b. LINEAR REGRESSION (MULTIVARIATE) ON SKLEARN-MAKE REGRESSION DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+#Create dataset
+from sklearn.datasets import make_regression
+
+
+data = make_regression(n_samples=100,n_features = 5,
+random_state = 42,bias=15,noise=5,n_targets=1) x = pd.DataFrame(data[0])
+y = pd.Series(data[1])
+
+#build model
+from sklearn.linear_model import LinearRegression ml = LinearRegression()
+
+#fit Model ml.fit(x,y)
+
+#predict ml.predict([[2.5,3,4,5,10]])
+
+
+1c. POLYNOMIAL REGRESSION ON SKLEARN-MAKE REGRESSION DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+#Create dataset
+from sklearn.datasets import make_regression
+data = make_regression(n_samples=20,n_features = 3,bias=15,
+noise=25,n_targets=1,random_state=42) x=pd.DataFrame(data[0]).values
+y = pd.Series(data[1]).values
+
+#Preprocess to add polynomial features
+from sklearn.preprocessing import PolynomialFeatures poly = PolynomialFeatures(degree=4)
+x_new = poly.fit_transform(x)
+
+#Build model
+from sklearn.linear_model import LinearRegression lin = LinearRegression()
+lin.fit(x_new,y)
+
+#Predict lin.predict(x_new)
+y_value = poly.fit_transform([[0.5,25,140]]) lin.predict(y_value)
+
+
+1d. LASSO REGRESSION ON SKLEARN-MAKE REGRESSION DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+#Create data
+from sklearn.datasets import make_regression data = make_regression(n_samples=10,n_features=4,
+n_targets=1,bias=10,noise=2,random_state=42) x = pd.DataFrame(data[0]).values
+y = pd.Series(data[1]).values
+
+#Build model
+from sklearn.linear_model import Lasso lasso = Lasso(alpha=5)
+
+#Fit model lasso.fit(x,y)
+
+#Predict
+y_las_pred = lasso.predict(x) lasso.predict([[35,1,2,4]])
+
+
+1e. RIDGE REGRESSION ON SKLEARN-MAKE REGRESSION DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+#Create data
+from sklearn.datasets import make_regression data = make_regression(n_samples=10,n_features=3,
+n_targets=1,bias=10,noise=10,random_state=42) x = pd.DataFrame(data[0]).values
+y = pd.Series(data[1]).values
+
+#Build model
+from sklearn.linear_model import Ridge ridge = Ridge(alpha=5)
+
+
+#Fit model ridge.fit(x,y)
+
+#Predict
+y_pred = ridge.predict(x) ridge.predict([[75,85,9]])
+
+

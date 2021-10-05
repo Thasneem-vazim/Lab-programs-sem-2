@@ -1,0 +1,45 @@
+
+SVM ON LOAD IRIS
+
+import pandas as pd
+d=pd.read_csv("/content/iris.csv")
+x=d[['sepal_length','sepal_width','petal_length','petal_width']]
+y=d['species']
+from sklearn.svm import SVC
+ML=SVC()
+ML=ML.fit(x,y)
+result=ML.predict([[3.7, 4.9, 5.2, 3.3]])
+print(result)
+output=ML.predict([[2.9, 3.8, 5.0, 5.2]])
+print(output)
+
+SVM ON HEART DATASET
+import pandas as pd
+d=pd.read_csv("/content/heart.csv")
+x=d[[ 'trtbps', 'chol', 'thalachh', 'oldpeak']]
+y=d['output']
+from sklearn.svm import SVC
+ML=SVC()
+ML=ML.fit(x,y)
+result=ML.predict([[ 130, 240, 120, 3.7 ]])
+print(result)
+from sklearn.naive_bayes import GaussianNB
+ML=GaussianNB()
+ML=ML.fit(x,y)
+result=ML.predict([[ 130, 240, 120, 3.7 ]])
+print(result)
+
+SVM ON LOAD WINE DATASET
+#1. Training #Load Data
+import pandas as pd
+iris=pd.read_csv("/content/winequality_white.csv")
+x=iris[['fixed acidity','volatile acidity','citric acid','residual sugar',
+'chlorides','free sulfur dioxide','total sulfur dioxide','density','pH','sulphates','alcohol']] y=iris['quality']
+#Build Model
+from sklearn.svm import SVC ML=SVC()
+#Fit data into the model
+ ML=ML.fit(x,y)
+#2. Testing op=ML.predict([[6.9,0.56,0.34,14.6,0.056,26,111,0.997,3.65,0.68,8.9]])
+print("Quality = ",op)
+
+

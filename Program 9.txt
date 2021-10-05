@@ -1,0 +1,194 @@
+9a. REGRESSION USING MLP ON BOSTON HOUSE PRICE DATASET
+import numpy as np import pandas as pd
+from sklearn.datasets import load_boston import tensorflow as tf
+from tensorflow import keras
+
+
+bostonData = load_boston()
+
+
+X = bostonData.data y = bostonData.target
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
+random_state=42)
+
+
+model_MLP = keras.models.Sequential()
+model_MLP.add(keras.layers.Dense(units=5, activation='relu', input_shape=
+X_train.shape[1:]))
+
+
+model_MLP.add(keras.layers.Dense(units=1, activation='linear'))
+
+
+model_MLP.summary()
+
+
+model_MLP.compile(loss='mse', optimizer='adam', metrics=['mae'])
+
+
+model_MLP.fit(x=X_train, y=y_train, validation_split=0.1,
+
+
+
+epochs=10, batch_size=16)
+
+
+test_loss, test_accuracy = model_MLP.evaluate(x=X_test, y=y_test)
+
+
+print("test loss = ", test_loss)
+
+
+print("test accuracy = ", test_accuracy)
+
+
+9b. i. MULTI CLASSCLASSIFICATION USING MLP ONLOAD_ IRIS DATASET
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+
+from sklearn.datasets import load_iris import tensorflow as tf
+from tensorflow import keras
+
+
+irisData = load_iris()
+
+
+X = irisData.data y = irisData.target
+
+
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model_MLP = keras.models.Sequential()
+
+
+
+model_MLP.add(keras.layers.Dense(units=15, activation='relu', input_shape= X_train.shape[1:]))
+model_MLP.add(keras.layers.Dense(units=3, activation='softmax'))
+
+
+model_MLP.summary()
+
+
+model_MLP.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+model_MLP.fit(x=X_train, y=y_train, epochs=50, batch_size=16)
+
+
+test_loss, test_accuracy = model_MLP.evaluate(x=X_test, y=y_test) print("test loss = ",test_loss)
+print("test accuracy = ", test_accuracy)
+
+
+9.b. ii. MULTI CLASS CLASSIFICATION USING MLP ON LOAD_WINE DATASET
+
+
+import numpy as np import pandas as pd
+
+from sklearn.datasets import load_wine
+
+
+import tensorflow as tf from tensorflow import keras
+
+wineData = load_wine()
+X = wineData.data y = wineData.target
+
+
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+model_MLP = keras.models.Sequential() model_MLP.add(keras.layers.Dense(units=5, activation='relu',
+input_shape= X_train.shape[1:]))
+
+
+model_MLP.add(keras.layers.Dense(units=3, activation='softmax'))
+
+
+model_MLP.summary()
+
+
+model_MLP.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+
+
+model_MLP.fit(x=X_train, y=y_train, validation_split=0.1, epochs=50, batch_size=16)
+
+test_loss, test_accuracy = model_MLP.evaluate(x=X_test, y=y_test) print("test loss = ",test_loss)
+print("test accuracy = ", test_accuracy)
+
+
+9.b. iii. MULTI CLASS CLASSIFICATION USING MLP ON FOREST_COVER DATASET
+
+
+
+import numpy as np import pandas as pd
+import matplotlib.pyplot as plt
+
+
+
+
+from sklearn.datasets import fetch_covtype import tensorflow as tf
+from tensorflow import keras
+
+
+X, y = fetch_covtype(return_X_y=True)
+
+
+print(X.shape) print(y.shape)
+
+# Reduce the number of attributes, consider only first 10 attributes. X_10 = X[:,:10]
+
+print(X_10.shape)
+
+
+from sklearn.model_selection import train_test_split
+X10_train, X10_test, y10_train, y10_test = train_test_split(X_10, y, test_size=0.1,
+stratify=y, random_state=42)
+
+
+print(X10_test.shape)
+
+
+
+X = X10_test y = y10_test
+
+print(set(y))
+
+
+# The label should start from 0, but by default, the labels are from 1 to 7.
+# Change them to the range 0 to 6 by subtracting 1 from the labels.
+
+
+
+y = y-1 print(set(y))
+# {0, 1, 2, 3, 4, 5, 6}
+
+
+
+from sklearn.model_selection import train_test_split
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+model_MLP = keras.models.Sequential() model_MLP.add(keras.layers.Dense(units=25, activation='relu',
+input_shape= X_train.shape[1:]))
+
+
+model_MLP.add(keras.layers.Dense(units=7, activation='softmax'))
+
+
+model_MLP.summary() model_MLP.compile(loss='sparse_categorical_crossentropy',
+optimizer='adam', metrics=['accuracy'])
+
+
+model_MLP.fit(x=X_train, y=y_train, validation_split=0.1, epochs=50, batch_size=16)
+
+test_loss, test_accuracy = model_MLP.evaluate(x=X_test, y=y_test) print(test_loss, test_accuracy)
+
+
+

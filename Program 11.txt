@@ -1,0 +1,108 @@
+#1.load and process MNIST 
+from tensorflow import keras mnDB=keras.datasets.mnist
+(x_train,y_train),(x_test,y_test)=mnDB.load_data()
+
+
+
+print("xtrain size : ", x_train.shape) print("ytrain size : ", y_train.shape) print("xtest size : ", x_test.shape) print("ytest size : ", y_test.shape)
+
+import matplotlib.pyplot as plt plt.imshow(x_train[0],cmap='binary')
+
+#convert to 1 channel
+
+
+x_train=x_train.reshape((60000,28,28,1)) x_test=x_test.reshape((10000,28,28,1))
+
+#normalise data
+
+
+x_train=x_train.astype("float32")/255 x_test=x_test.astype("float32")/255
+
+#2. create cnn layers ml=keras.models.Sequential()
+
+ml.add(keras.layers.Conv2D(32,(3,3),activation="relu",input_shape=x_tr ain.shape[1:]))
+ml.add(keras.layers.Conv2D(64,(3,3),activation="relu")) ml.add(keras.layers.MaxPooling2D((2,2))) ml.add(keras.layers.Dropout(0.25)) ml.add(keras.layers.Flatten()) ml.add(keras.layers.Dense(128,activation="relu")) ml.add(keras.layers.Dropout(0.25))
+
+
+
+ml.add(keras.layers.Dense(10,activation="softmax"))
+
+
+ml.summary()
+
+
+#3. compile and test
+
+
+ml.compile(loss="sparse_categorical_crossentropy", optimizer="adam",metrics="accuracy")
+
+
+ml.fit(x_train,y_train,epochs=2,batch_size=16)
+
+
+testloss,testaccuracy=ml.evaluate(x_test,y_test) print("test loss = ",testloss)
+print("test accuracy = ",testaccuracy)
+
+11b. CNN WITH BATCH NORMALISATION AND CALLBACKS ON MNIST DATASET
+#1.load and process MNIST from tensorflow import keras mnDB=keras.datasets.mnist
+(x_train,y_train),(x_test,y_test)=mnDB.load_data()
+
+
+#convert to 1 channel x_train=x_train.reshape((60000,28,28,1)) x_test=x_test.reshape((10000,28,28,1))
+
+#normalise data x_train=x_train.astype("float32")/255 x_test=x_test.astype("float32")/255
+
+#2. create cnn layers ml=keras.models.Sequential()
+
+ml.add(keras.layers.Conv2D(32,(3,3),activation="relu",input_shape=x_tr ain.shape[1:]))
+
+ml.add(keras.layers.Conv2D(64,(3,3),activation="relu")) ml.add(keras.layers.BatchNormalization())
+
+
+
+ml.add(keras.layers.MaxPooling2D((2,2))) ml.add(keras.layers.Dropout(0.25)) ml.add(keras.layers.Flatten()) ml.add(keras.layers.Dense(128,activation="relu")) ml.add(keras.layers.Dropout(0.25)) ml.add(keras.layers.Dense(10,activation="softmax"))
+
+ml.summary()
+
+#3. compile and test ml.compile(loss="sparse_categorical_crossentropy", optimizer="adam",metrics="accuracy")
+
+es=keras.callbacks.EarlyStopping(monitor='loss',patience=10,restore_be st_weights=True) cp=keras.callbacks.ModelCheckpoint("/content/cnn.h5",monitor='val_loss ')
+
+ml.fit(x_train,y_train,epochs=2,batch_size=16,callbacks=[es,cp])
+
+
+testloss,testaccuracy=ml.evaluate(x_test,y_test) print("test loss = ",testloss)
+print("test accuracy = ",testaccuracy)
+
+
+
+11c. CNN ON FASHION MNIST DATASET
+#CNN on fashionMNIST
+#1 Load and process fashionMNIST
+
+from tensorflow import keras import matplotlib.pyplot as plt
+
+#a.load dataset mnDB=keras.datasets.fashion_mnist (xtrain,ytrain),(xtest,ytest)=mnDB.load_data() print("Xtrain size:",xtrain.shape) print("Xtest size:",xtest.shape) print("Ytrain size:",ytrain.shape) print("Ytest size:",ytest.shape)
+
+plt.imshow(xtrain[7],cmap='binary')
+
+#b.convet to 1 channel xtrain=xtrain.reshape((60000,28,28,1)) xtest=xtest.reshape((10000,28,28,1))
+
+print("New Xtrain size:",xtrain.shape) print("New Ytest size:",xtest.shape)
+
+
+xtrain=xtrain.astype('float32')/255 xtest=xtest.astype('float32')/255
+
+#2 Create CNN Layers
+cnn= keras.models.Sequential() cnn.add(keras.layers.Conv2D(32,(3,3),activation= "relu", input_shape=xtrain.shape[1:])) cnn.add(keras.layers.Conv2D(64,(3,3),activation= "relu")) cnn.add(keras.layers.MaxPool2D(2,2)) cnn.add(keras.layers.Dropout(0.25)) cnn.add(keras.layers.Flatten()) cnn.add(keras.layers.Dense(128,activation='relu')) cnn.add(keras.layers.Dropout(0.25)) cnn.add(keras.layers.Dense(10,activation='softmax')) cnn.summary()
+
+#3 compile and test #a.compile
+cnn.compile(loss="sparse_categorical_crossentropy", optimizer="adam",metrics="accuracy")
+
+#b.fit and test cnn.fit(xtrain,ytrain,epochs=2,batch_size=16)
+
+testloss,testaccuracy=cnn.evaluate(xtest,ytest) print("Testloss=",testloss)
+print("Test accuracy=",testaccuracy)
+
+
+

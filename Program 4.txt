@@ -1,0 +1,83 @@
+
+DECISION TREE CLASSIFIER
+LOAD IRIS
+#load data.................................
+from sklearn.datasets import load_iris
+iris=load_iris()
+x=iris.data
+y=iris.target
+fn=iris.feature_names
+cn=iris.target_names
+
+#algorithm........................
+from sklearn.tree import DecisionTreeClassifier
+ml=DecisionTreeClassifier()
+#fit alorithm..........
+ml=ml.fit(x,y)
+result=ml.predict([[3.0,4.5,5.0,6.5,]])
+print (result)
+from sklearn import tree
+import graphviz
+dot_data = tree.export_graphviz(ml, out_file=None,
+                                feature_names=fn,  
+                                class_names=cn,
+                                filled=True,
+                                rounded=True,  
+                      special_characters=True)  
+graph = graphviz.Source(dot_data) 
+graph.render("tkm") 
+graph 
+
+HEART DATASET
+import pandas as pd
+heart= pd.read_csv("/content/heart.csv")
+x= heart[['trestbps','chol','thalach','oldpeak']]
+y= heart['target']
+#algorithm........................
+from sklearn.tree import DecisionTreeClassifier
+ml=DecisionTreeClassifier()
+#fit alorithm..........
+ml=ml.fit(x,y)
+result=ml.predict([[120,342,170,1.6]])
+print (result)
+
+from sklearn import tree
+import graphviz
+dot_data = tree.export_graphviz(ml,out_file=None,
+                                filled=True,
+                                rounded=True,  
+                      special_characters=True)
+graph = graphviz.Source(dot_data) 
+graph.render("tree_with_kaggle") 
+graph
+
+
+
+
+LOAD WINE DATASET
+#load data.................................
+from sklearn.datasets import load_wine
+w=load_wine()
+x=w.data
+y=w.target
+fn=w.feature_names
+cn=w.target_names
+
+#algorithm........................
+from sklearn.tree import DecisionTreeClassifier
+ml=DecisionTreeClassifier()
+#fit alorithm..........
+ml=ml.fit(x,y)
+result=ml.predict([[1.4,3.10,4.25,5.08,6.75,1.004,2.3,1.11,8.006,1.44,1.009,3.01,5.003]])
+print (result)
+import graphviz
+dot_data = tree.export_graphviz(ml, out_file=None,
+                                feature_names=fn,  
+                                class_names=cn,
+                                filled=True,
+                                rounded=True,  
+                      special_characters=True)  
+graph = graphviz.Source(dot_data) 
+graph.render("Pgm1load_wineDT") 
+graph 
+

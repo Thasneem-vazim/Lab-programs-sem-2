@@ -1,0 +1,48 @@
+PROGRAM:
+#load data
+from sklearn.datasets import load_iris
+ 
+irisData = load_iris()
+X = irisData.data
+y = irisData.target
+ 
+import matplotlib.pyplot as plt
+print(irisData.feature_names)
+ 
+#split to train and test data
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5,
+ stratify=y, random_state=42)
+ 
+#build model
+import tensorflow as tf
+from tensorflow import keras
+tf.random.set_seed(42)
+encoder = keras.models.Sequential([keras.layers.Dense(2, input_shape=[4],
+activation='linear')])
+decoder = keras.models.Sequential([keras.layers.Dense(4, input_shape=[2],
+activation='linear')])
+autoencoder = keras.models.Sequential([encoder, decoder])
+autoencoder.summary()
+ 
+#compile
+autoencoder.compile(loss="mse", optimizer='adam')
+ 
+#fit data
+history_ae = autoencoder.fit(X_train, X_train, epochs=500)
+ 
+ 
+output_ae = encoder.predict(X_test)
+print(output_ae.shape)
+ 
+plt.scatter(output_ae[:,0], output_ae[:,1])
+plt.show()
+ 
+ 
+
+
+
+
+
+
+

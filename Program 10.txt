@@ -1,0 +1,84 @@
+#1. Import the packages and load data from sklearn.datasets import load_iris from tensorflow import keras
+iris = load_iris() X = iris.data
+Y = iris.target
+
+#2. Split the dataset
+from sklearn.model_selection import train_test_split X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.2,random_state = 42)
+
+#3. Defining the model - Input and Hidden Layer Construction model_dnn = keras.models.Sequential()
+model_dnn.add(keras.layers.Dense(units = 12, activation = 'relu',input_shape
+= X_train.shape[1:]))
+model_dnn.add(keras.layers.Dense(units = 10, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 8, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 6, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 6, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 3, activation = 'sigmoid')) model_dnn.summary()
+
+#4 Compile the model and fit the data into model model_dnn.compile(loss= 'sparse_categorical_crossentropy',optimizer = 'adam' , metrics = ['accuracy'])
+model_dnn.fit(x=X_train , y =Y_train , validation_split = 0.1 , epochs =5, batch_size = 16)
+
+#5 Evaluating the model testloss,testaccuracy=model_dnn.evaluate(X_test,Y_test) print("Test loss observed on iris dataset = ",testloss) print("Test accuracy observed on iris dataset = ",testaccuracy)
+
+
+10b. CONSTRUCT DNN MODEL FOR LOAD_IRIS DATASET AND PERFORM DL STRATEGIES
+
+#1. Import the packages and load data from sklearn.datasets import load_iris from tensorflow import keras
+iris = load_iris() X = iris.data
+Y = iris.target
+
+#2. Split the dataset
+from sklearn.model_selection import train_test_split X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.2,rando m_state = 42)
+
+#3. Defining the model - Input and Hidden Layer Construction model_dnn = keras.models.Sequential()
+model_dnn.add(keras.layers.Dense(units = 12, activation = 'relu',input_sha pe = X_train.shape[1:]))
+model_dnn.add(keras.layers.Dense(units = 10, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 8, activation = 'relu')) model_dnn.add(keras.layers.Dropout(0.75)) model_dnn.add(keras.layers.Dense(units = 6, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 6, activation = 'relu')) model_dnn.add(keras.layers.Dense(units = 3, activation = 'sigmoid')) model_dnn.summary()
+
+#4 Compile the model and fit the data into model
+model_dnn.compile(loss= 'sparse_categorical_crossentropy',optimizer = 'ada m' , metrics = ['accuracy'])
+model_dnn.fit(x=X_train , y =Y_train , validation_split = 0.1 , epochs =5, batch_size = 8)
+
+#5 Evaluating the model testloss,testaccuracy=model_dnn.evaluate(X_test,Y_test) print("Test loss observed on iris dataset = ",testloss) print("Test accuracy observed on iris dataset = ",testaccuracy)
+
+10c. CONSTRUCT DNN MODEL FOR LOAD_WINE DATASET AND PERFORM DL STRATEGIES
+
+#1.Import and load data
+from sklearn.datasets import load_wine from tensorflow import keras wine=load_wine()
+x=wine.data y=wine.target
+
+
+#2.Split the dataset
+from sklearn.model_selection import train_test_split x_train,x_test,y_train,y_test = train_test_split(x,y,train_size=0.7,random_state=42)
+
+#3.DNN layer construction model_DNN=keras.models.Sequential()
+
+#4.Input and hidden layer construction model_DNN.add(keras.layers.Dense(units=12, activation = "relu",input_shape = x.shape[1:]))
+model_DNN.add(keras.layers.Dense(units=10,activation = "relu")) model_DNN.add(keras.layers.Dropout(0.25)) model_DNN.add(keras.layers.Dense(units=8,activation = "relu" )) model_DNN.add(keras.layers.Dense(units=6,activation = "relu")) model_DNN.add(keras.layers.Dense(units=3, activation = "sigmoid")) model_DNN.summary()
+
+#5. Fit and compile model_DNN.compile(loss="sparse_categorical_crossentropy",optimizer="adam", metrics="accuracy")
+model_DNN.fit(x_train,y_train,epochs=5,batch_size=16) testloss,testaccuracy=model_DNN.evaluate(x_test,y_test) print("Test loss = ",testloss)
+print("Test accuracy = ",testaccuracy)
+
+10d. CONSTRUCT DNN MODEL FOR FOREST COVER DATASET AND PERFORM DL STRATEGIES
+
+#1.Import and load data
+from sklearn.datasets import fetch_covtype from tensorflow import keras
+X,y = fetch_covtype(return_X_y=True)
+
+#2.Split the dataset
+from sklearn.model_selection import train_test_split X_train,X_test,y_train,y_test = train_test_split(X,y,train_size=0.7,random_state=42)
+
+#3.DNN layer construction model_DNN=keras.models.Sequential()
+
+#4.Input and hidden layer construction model_DNN.add(keras.layers.Dense(units=12, activation = "relu",input_shape = X.shape[1:]))
+
+
+
+model_DNN.add(keras.layers.Dense(units=10,activation = "relu")) model_DNN.add(keras.layers.Dropout(0.25)) model_DNN.add(keras.layers.Dense(units=8,activation = "relu" )) model_DNN.add(keras.layers.Dense(units=6,activation = "relu")) model_DNN.add(keras.layers.Dense(units=54, activation = "sigmoid")) model_DNN.summary()
+
+#5. Fit and compile model_DNN.compile(loss="sparse_categorical_crossentropy",optimizer="adam", metrics="accuracy")
+model_DNN.fit(X_train,y_train,epochs=5,batch_size=150) testloss,testaccuracy=model_DNN.evaluate(X_test,y_test) print("Test loss = ",testloss)
+print("Test accuracy = ",testaccuracy)
+
+
+
+RESULT:
+The above program is successfully executed and obtained the output. OUTPUT:
+10a. CONSTRUCT DNN MODEL FOR LOAD_IRIS DATASET
+
+
